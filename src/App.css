@@ -1,0 +1,297 @@
+/* ===== Base ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow: hidden;
+}
+
+body.dark {
+  background-color: #08081a;
+  color: #ffffff;
+}
+
+body.light {
+  background-color: #f0f2f5;
+  color: #222;
+}
+
+/* ===== App Container ===== */
+.App {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* ===== Animated Background Gradient ===== */
+.bg-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.App.dark .bg-gradient {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(240, 147, 251, 0.04) 0%, transparent 60%);
+  animation: bgShift 15s ease-in-out infinite alternate;
+}
+
+.App.light .bg-gradient {
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(102, 126, 234, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(118, 75, 162, 0.04) 0%, transparent 50%);
+}
+
+@keyframes bgShift {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.05) translate(2%, -1%); }
+  100% { transform: scale(1) translate(-1%, 1%); }
+}
+
+/* ===== Floating Particles ===== */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: float linear infinite;
+}
+
+body.light .particle {
+  background: rgba(102, 126, 234, 0.25);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity, 0.2);
+  }
+  90% {
+    opacity: var(--particle-opacity, 0.2);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ===== Fog ===== */
+.fog-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fog {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  opacity: 0.025;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.25), transparent 70%);
+}
+
+.fog1 {
+  animation: fogDrift1 25s ease-in-out infinite;
+  top: -20%;
+  left: -10%;
+}
+
+.fog2 {
+  animation: fogDrift2 30s ease-in-out infinite;
+  bottom: -20%;
+  right: -10%;
+}
+
+@keyframes fogDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(3%, 2%) scale(1.03) rotate(1deg); }
+  66% { transform: translate(-2%, 4%) scale(1.06) rotate(-1deg); }
+}
+
+@keyframes fogDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(-3%, -1%) scale(1.04) rotate(-1deg); }
+  66% { transform: translate(2%, -3%) scale(1.02) rotate(1deg); }
+}
+
+body.light .fog { opacity: 0.015; }
+
+/* ===== Header ===== */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  z-index: 10;
+  background: transparent;
+  animation: headerSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes headerSlide {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 1.3rem;
+  animation: logoSpin 3s ease-in-out infinite;
+}
+
+@keyframes logoSpin {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(10deg) scale(1.1); }
+  75% { transform: rotate(-5deg) scale(1); }
+}
+
+.logo-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 4s ease infinite;
+}
+
+@keyframes gradientText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===== Theme Toggle ===== */
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0;
+  color: inherit;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+body.light .theme-toggle {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light .theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.toggle-icon {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toggle-icon.rotate-in {
+  animation: rotateIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toggle-icon.rotate-out {
+  animation: rotateOut 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rotateIn {
+  from { transform: rotate(-180deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes rotateOut {
+  from { transform: rotate(180deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0.75rem;
+  z-index: 1;
+  animation: fadeInUp 0.8s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.app-footer p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.18);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+body.light .app-footer p {
+  color: rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Ensure card above background ===== */
+.quote-card {
+  position: relative;
+  z-index: 1;
+}

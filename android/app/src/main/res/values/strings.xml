@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Motivation Quotes Daily</string>
+    <string name="title_activity_main">Motivation Quotes Daily</string>
+    <string name="package_name">com.saket.app</string>
+    <string name="custom_url_scheme">com.saket.app</string>
+</resources>
